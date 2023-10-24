@@ -24,10 +24,10 @@
         <td>{{row.sign_in_time.hour}}:{{row.sign_in_time.minute}}</td>
 
 
-        {% if row.sign_out_time == None or row.sign_out_time.date != new_date %}
+        {% if row.sign_out_time == None or row.sign_out_time.date() != new_date %}
         <td>  </td>
 
-        {% elif row.sign_out_time.date == new_date %}
+        {% elif row.sign_out_time.date() == new_date %}
         <td>{{row.sign_out_time.hour}}:{{row.sign_out_time.minute}}</td>
         {% endif %}
 
