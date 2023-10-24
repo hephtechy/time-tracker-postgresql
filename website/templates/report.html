@@ -34,7 +34,7 @@
         {% endif %}
 
         <td>
-          {% if user.sign_in_status and user.sign_in_time.date() == new_date %}
+          {% if user.sign_in_status %}
                 <a href="/sign_out/{{user.id}}"  class="btn btn-outline-danger btn-sm mx-1">Sign_out</button>
           {% else %}
                 <a href="#"  class="btn btn-outline-primary btn-sm mx-1">Signed_out</button>
