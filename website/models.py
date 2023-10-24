@@ -2,9 +2,6 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from datetime import datetime, timedelta
-import pytz
-
-tz=pytz.timezone('Africa/Lagos')
 
 
 class User(db.Model, UserMixin):
@@ -13,7 +10,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(50))
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
-    sign_in_time = db.Column(db.DateTime(tz=pytz.timezone('Africa/Lagos')), nullable=True)#, server_default=func.now())
-    sign_out_time = db.Column(db.DateTime(tz=pytz.timezone('Africa/Lagos')), nullable=True)
+    sign_in_time = db.Column(db.DateTime, nullable=True)#, server_default=func.now())
+    sign_out_time = db.Column(db.DateTime, nullable=True)
     sign_in_status = db.Column(db.Boolean, nullable=True)
     interval = db.Column(db.Interval, nullable=True)
