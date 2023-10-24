@@ -16,24 +16,26 @@
       </tr>
     </thead>
     <tbody>
-      {% for row in user %}
+      {% for user in users %}
       <tr>
-        {% if row.sign_in_time.date() == new_date %}
-        <th scope="row">{{row.id}}</th> <!-- {{loop.index}} -->
-        <td>{{row.first_name}} {{row.last_name}}</td>
-        <td>{{row.sign_in_time.hour}}:{{row.sign_in_time.minute}}</td>
+        {% if user.sign_in_time.date() == today %}
+        <th scope="user">{{user.id}}</th> <!-- {{loop.index}} -->
+        <td>{{user.first_name}} {{user.last_name}}</td>
+        <td>{{user.sign_in_time.hour}}:{{user.sign_in_time.minute}}</td>
 
 
-        {% if row.sign_out_time == None or row.sign_out_time.date() != new_date %}
+        {% if user.sign_out_time == None %}
+        <!-- The second part above was necessary so as not to allow display sign-out time
+        when the user is just signing out the next day. -->
         <td>  </td>
 
-        {% elif row.sign_out_time.date() == new_date %}
-        <td>{{row.sign_out_time.hour}}:{{row.sign_out_time.minute}}</td>
+        {% else %}
+        <td>{{user.sign_out_time.hour}}:{{user.sign_out_time.minute}}</td>
         {% endif %}
 
         <td>
-          {% if row.sign_in_status and row.sign_in_time.date() == new_date %}
-                <a href="/sign_out/{{row.id}}"  class="btn btn-outline-danger btn-sm mx-1">Sign_out</button>
+          {% if user.sign_in_status and user.sign_in_time.date() == new_date %}
+                <a href="/sign_out/{{user.id}}"  class="btn btn-outline-danger btn-sm mx-1">Sign_out</button>
           {% else %}
                 <a href="#"  class="btn btn-outline-primary btn-sm mx-1">Signed_out</button>
           {% endif %}

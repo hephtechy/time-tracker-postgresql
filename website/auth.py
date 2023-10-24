@@ -51,11 +51,10 @@ def sign_in():
                 db.session.add(user)
                 db.session.commit()
                 # user = User.query.filter_by(email=email).first()
-                user = User.query.all()
+                users = User.query.all()
+                today = newest_day()
 
-                new_date = newest_day()
-                if new_date != None:
-                    return render_template('report.html', user=user, new_date=new_date)
+                return render_template('report.html', users=users, today=today)
 
             else:
                 flash('Incorrect password, try again.', category='error')
@@ -69,18 +68,15 @@ def sign_in():
 @login_required
 def sign_out(id):
     if request.method == 'GET':
-        sign_out_time = datetime.now()
         user = User.query.filter_by(id=id).first()
-        user.sign_out_time = sign_out_time
-        user.sign_in_status = False
-        # user.interval = (user.sign_out_time) - (user.sign_in_time)
-        db.session.add(user)
-        db.session.commit()
-        user = User.query.all()
-
-        new_date = newest_day()
-        if new_date != None:
-            return render_template('report.html', user=user, new_date=new_date)
+        if user.sign_in_status == True:
+            user.sign_out_time = datetime.now()
+            user.sign_in_status = False
+            db.session.add(user)
+            db.session.commit()
+        users = User.query.all()
+        today = newest_day()
+        return render_template('report.html', users=users, today=today)
 
 @auth.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
