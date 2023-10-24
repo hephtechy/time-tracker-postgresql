@@ -4,7 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from datetime import datetime
-import pytz
 
 
 auth = Blueprint('auth', __name__)
@@ -46,7 +45,7 @@ def sign_in():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
-                sign_in_time = datetime.now(tz=pytz.timezone('Africa/Lagos'))
+                sign_in_time = datetime.now()
                 user.sign_in_time = sign_in_time
                 user.sign_in_status = True
                 db.session.add(user)
@@ -70,7 +69,7 @@ def sign_in():
 @login_required
 def sign_out(id):
     if request.method == 'GET':
-        sign_out_time = datetime.now(tz=pytz.timezone('Africa/Lagos'))
+        sign_out_time = datetime.now()
         user = User.query.filter_by(id=id).first()
         user.sign_out_time = sign_out_time
         user.sign_in_status = False
