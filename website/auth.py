@@ -73,7 +73,7 @@ def sign_out(id):
         user = User.query.filter_by(id=id).first()
         user.sign_out_time = sign_out_time
         user.sign_in_status = False
-        user.interval = (user.sign_out_time) - (user.sign_in_time)
+        # user.interval = (user.sign_out_time) - (user.sign_in_time)
         db.session.add(user)
         db.session.commit()
         user = User.query.all()
