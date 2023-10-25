@@ -24,7 +24,7 @@
         <td>{{user.sign_in_time.hour}}:{{user.sign_in_time.minute}}</td>
 
 
-        {% if user.sign_out_time == None %}
+        {% if user.sign_out_time == None or user.sign_out_time.date() != today %}
         <!-- The second part above was necessary so as not to allow display sign-out time
         when the user is just signing out the next day. -->
         <td>  </td>
